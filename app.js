@@ -31,7 +31,7 @@ if ('development' == app.get('env')) {
 }
 
 
-app.get('/tag/:tag', routes.index);
+app.get('/tag/:tag', routes.tag);
 app.get('/brands/:brands', routes.brands);
 app.get('/search', routes.search);
 app.get('/', routes.index);
