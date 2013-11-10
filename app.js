@@ -12,7 +12,7 @@ var app = express();
 
 //年双十一活动商品清单-价格提前曝光-已解密
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 80);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.favicon(path.join(__dirname, 'public/favicon.ico'))); 
@@ -35,19 +35,6 @@ app.get('/tag/:tag', routes.index);
 app.get('/brands/:brands', routes.brands);
 app.get('/search', routes.search);
 app.get('/', routes.index);
-
-
-
-
-//var obj = xlsx.parse(fs.readFileSync(__dirname + '/20131111.xlsx')); // parses a buffer
-//var obj = xlsx.parse(__dirname + '/20131111.xlsx'); // parses a file
-
-
-
-
-
-
-
 
 
 

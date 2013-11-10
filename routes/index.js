@@ -40,15 +40,18 @@ var BrandsModel = mongoose.model("tagBrands", TagSchema);
 
 
 exports.index = function(req, res){
+	res.render('index', {});
+};
 
-	console.log(req.cookies)
+
+exports.tag = function(req, res){
 	var tag = req.params.tag || "女装";
 
 	BrandsModel.findOne({tag : tag}).exec(function(err, Onebrands){
 		 Model.find({pinpai: Onebrands.brands[0]}).exec(function(err, list){
 		 	if(err) console.log(err)
 		 		req.session.tag = tag;
-		 		res.render('index', { title: '陪你买——' + tag, list: list, brands: Onebrands.brands});
+		 		res.render('tag', { title: '陪你买——' + tag, list: list, brands: Onebrands.brands});
 		 });
 	})
 };
