@@ -1,0 +1,130 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A layout example that shows off a responsive email layout.">
+
+<title>搜索</title>
+
+    
+
+
+
+
+
+
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+
+
+
+
+
+<link rel="stylesheet" href="/stylesheets/email_search.css">
+</head>
+<body>
+
+
+
+
+
+
+<div class="pure-g-r content" id="layout">
+    <div class="pure-u" id="nav">
+        <a href="#" class="nav-menu-button">菜单</a>
+
+        <div class="nav-inner">
+            <button class="pure-button primary-button">陪你买</button>
+
+            <div class="pure-menu pure-menu-open">
+                <ul>
+                    <li><a href="/tag/女装">女装</a></li>
+                    <li><a href="/tag/美妆">美妆</a></li>
+                    <li><a href="/tag/内衣">内衣</a></li>
+                    <li><a href="/tag/美食">美食</a></li>
+                    <li><a href="/tag/女鞋">女鞋</a></li>
+                    <li><a href="/tag/国际大牌">国际大牌</a></li>
+                    <li><a href="/tag/母婴">母婴</a></li>
+                    <li><a href="/tag/箱包">箱包</a></li>
+                    <li><a href="/tag/珠宝配饰">珠宝配饰</a></li>
+                    <li><a href="/tag/男装">男装</a></li>
+                    <li><a href="/tag/男鞋">男鞋</a></li>
+                    <li><a href="/tag/运动鞋服">运动鞋服</a></li>
+                    <li><a href="/tag/户外">户外</a></li>
+                    <li><a href="/tag/家纺">家纺</a></li>
+                    <li><a href="/tag/家具">家具</a></li>
+                    <li><a href="/tag/建材">建材</a></li>
+                    <li><a href="/tag/家居用品">家居用品</a></li>
+                    <li><a href="/tag/成人保健">成人保健</a></li>
+                    <li class="pure-menu-heading">合作伙伴</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="pure-u-1" id="main">
+    	<div class="email-content" >
+    		<div class="email-content-header pure-g">
+
+	            <form action="/search" method="get" class="pure-form">
+				    <input type="text" class="pure-input-rounded" placeholder="搜索商品" name="key">
+				    <button type="submit"  class="pure-button primary-button" id="searchbtn">搜索</button>
+				</form>
+			</div>
+			<div class="email-content-body" id="products">
+				<% include products.ejs %>
+			</div>
+
+            <% if (more && more === true) { %>
+
+                <button class="pure-button primary-button" id="more" data-id="<%= list[list.length -1]._id %>" >更多</button>
+
+            <% } %>
+		</div>
+    </div>
+</div>
+
+<script src="http://yui.yahooapis.com/3.12.0/build/yui/yui-min.js"></script>
+<script>
+    YUI().use('node-base', 'node-event-delegate', function (Y) {
+
+        var menuButton = Y.one('.nav-menu-button'),
+            nav        = Y.one('#nav');
+
+        // Setting the active class name expands the menu vertically on small screens.
+        menuButton.on('click', function (e) {
+            nav.addClass('active');
+        });
+
+        // Your application code goes here...
+
+    });
+</script>
+
+
+
+<script>
+YUI().use("io-base", "node",
+
+    function(Y) {
+        Y.on('click', function(e){
+        	var url = window.location.href + '&&_id=' + e.target.getAttribute("data-id");
+        	Y.io(url, {
+			    on : {
+			        success : function (tx, r) {
+			            Y.one('#products tbody').appendChild(r.responseText);
+			        }
+			    }
+			});
+        }, "#more");
+
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>

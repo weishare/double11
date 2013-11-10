@@ -1,0 +1,7 @@
+<% if (brands.length) { %>
+    <% brands.forEach(function(obj, index){ %>
+        <div class="email-item" data-brands="<%= obj %>">
+            <%= obj %>
+        </div>
+    <% }) %>
+<% } %>

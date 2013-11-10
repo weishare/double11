@@ -1,0 +1,31 @@
+
+
+<table class="pure-table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>商品名称</th>
+            <th>现售价</th>
+            <th>专柜价</th>
+            <th>历史最低售价</th>
+            <th class="red">11.11价格</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    	<% if (list.length) { %>
+			<% list.forEach(function(obj, index){ %>
+		        <tr>
+		            <td><%= index %></td>
+		            <td><a href="<%= obj.url %>" target="_blank"><%= obj.name %></a></td>
+		            <td><%= obj.price1 %></td>
+		            <td><%= obj.price2 %></td>
+		            <td><%= obj.price3 %></td>
+		            <td class="red"><%= obj.price4 %></td>
+		        </tr>
+		    <% }) %>
+		<% } %>
+    </tbody>
+</table>
+

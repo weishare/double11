@@ -1,0 +1,12 @@
+<% if (list.length) { %>
+	<% list.forEach(function(obj, index){ %>
+        <tr>
+            <td><%= index %></td>
+            <td><a href="<%= obj.url %>" target="_blank"><%= obj.name %></a></td>
+            <td><%= obj.price1 %></td>
+            <td><%= obj.price2 %></td>
+            <td><%= obj.price3 %></td>
+            <td class="red"><%= obj.price4 %></td>
+        </tr>
+    <% }) %>
+<% } %>
