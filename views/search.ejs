@@ -75,7 +75,7 @@
 				<% include products.ejs %>
 			</div>
 
-            <% if (more && more === true) { %>
+            <% if (list && list.length === 100) { %>
 
                 <button class="pure-button primary-button" id="more" data-id="<%= list[list.length -1]._id %>" >更多</button>
 

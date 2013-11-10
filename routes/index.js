@@ -48,10 +48,11 @@ exports.tag = function(req, res){
 	var tag = req.params.tag || "女装";
 
 	BrandsModel.findOne({tag : tag}).exec(function(err, Onebrands){
+		if (err) console.log(err);
 		 Model.find({pinpai: Onebrands.brands[0]}).exec(function(err, list){
-		 	if(err) console.log(err)
-		 		req.session.tag = tag;
-		 		res.render('tag', { title: '陪你买——' + tag, list: list, brands: Onebrands.brands});
+		 	if(err) console.log(err);
+	 		req.session.tag = tag;
+	 		res.render('tag', { title: '陪你买——' + tag, list: list, brands: Onebrands.brands});
 		 });
 	})
 };
@@ -83,10 +84,8 @@ exports.search = function(req, res){
 		} else {
 			Model.find({$where:where}).limit(100).exec(function(err, list){
 			 	if(err) console.log(err)
-			 		res.render('search', { list: list, more :( list.length === 100)});
+			 		res.render('search', { list: list});
 			 });
-
 		}
-
 	};
 };

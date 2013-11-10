@@ -35,6 +35,11 @@ app.get('/tag/:tag', routes.tag);
 app.get('/brands/:brands', routes.brands);
 app.get('/search', routes.search);
 app.get('/', routes.index);
+app.use(function(err, req, res, next) {
+    if(!err) return next(); // you also need this line
+    console.log("error!!!");
+    res.send("error!!!");
+});
 
 
 
