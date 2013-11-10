@@ -74,15 +74,16 @@ exports.search = function(req, res){
 	if (req.query.key ) {
 		var where = 'this.name.indexOf("'+ req.query.key + '") >= 0';
 
-		if (req.query._id) {
+		if (req.query._id && req.query.num) {
 
-			Model.find({$where:where}).where('_id').lt(req.query._id).limit(100).exec(function(err, list){
+			console.log(req.query.num)
+			Model.find({$where:where}).where('_id').lt(req.query._id).sort({'_id':-1}).limit(100).exec(function(err, list){
 			 	if(err) console.log(err)
-			 		res.render('moreproducts', { list: list});
+			 		res.render('moreproducts', { list: list, num: parseInt(req.query.num)});
 			 });
 
 		} else {
-			Model.find({$where:where}).limit(100).exec(function(err, list){
+			Model.find({$where:where}).sort({'_id':-1}).limit(100).exec(function(err, list){
 			 	if(err) console.log(err)
 			 		res.render('search', { list: list});
 			 });

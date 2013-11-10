@@ -1,7 +1,7 @@
 <% if (list.length) { %>
 	<% list.forEach(function(obj, index){ %>
         <tr>
-            <td><%= index %></td>
+            <td><%= index + num %></td>
             <td><a href="<%= obj.url %>" target="_blank"><%= obj.name %></a></td>
             <td><%= obj.price1 %></td>
             <td><%= obj.price2 %></td>

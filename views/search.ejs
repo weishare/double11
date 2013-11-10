@@ -76,9 +76,7 @@
 			</div>
 
             <% if (list && list.length === 100) { %>
-
-                <button class="pure-button primary-button" id="more" data-id="<%= list[list.length -1]._id %>" >更多</button>
-
+                <button class="pure-button primary-button" id="more" data-id="<%= list[list.length -1]._id %>">更多</button>
             <% } %>
 		</div>
     </div>
@@ -108,11 +106,17 @@ YUI().use("io-base", "node",
 
     function(Y) {
         Y.on('click', function(e){
-        	var url = window.location.href + '&&_id=' + e.target.getAttribute("data-id");
+
+            var size =  Y.all('#products tbody tr').size();
+        	var url = window.location.href + '&&_id=' + e.target.getAttribute("data-id") + '&&num=' + size;
         	Y.io(url, {
 			    on : {
 			        success : function (tx, r) {
 			            Y.one('#products tbody').appendChild(r.responseText);
+
+                        if (Y.all('#products tbody tr').size() - size < 100) {
+                            Y.one('#more').hide();
+                        };
 			        }
 			    }
 			});
