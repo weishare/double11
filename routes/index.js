@@ -48,12 +48,20 @@ exports.tag = function(req, res){
 	var tag = req.params.tag || "女装";
 
 	BrandsModel.findOne({tag : tag}).exec(function(err, Onebrands){
-		if (err) console.log(err);
-		 Model.find({pinpai: Onebrands.brands[0]}).exec(function(err, list){
-		 	if(err) console.log(err);
-	 		req.session.tag = tag;
-	 		res.render('tag', { title: '陪你买——' + tag, list: list, brands: Onebrands.brands});
-		 });
+		if(err) {
+	 		console.error(err);
+	 		return;
+	 	}
+	 	if (Onebrands) {
+			Model.find({pinpai: Onebrands.brands[0]}).exec(function(err, list){
+			 	if(err) {
+			 		console.error(err);
+			 		return;
+			 	}
+		 		req.session.tag = tag;
+		 		res.render('tag', { title: '陪你买——' + tag, list: list, brands: Onebrands.brands});
+			});
+	 	};
 	})
 };
 
@@ -61,8 +69,11 @@ exports.tag = function(req, res){
 exports.brands = function(req, res){
 	if (req.params.brands ) {
 		Model.find({pinpai: req.params.brands}).exec(function(err, list){
-		 	if(err) console.log(err)
-		 		res.render('products', { list: list});
+		 	if(err) {
+		 		console.error(err);
+		 		return;
+		 	}
+	 		res.render('products', { list: list});
 		 });
 	};
 };
@@ -76,16 +87,21 @@ exports.search = function(req, res){
 
 		if (req.query._id && req.query.num) {
 
-			console.log(req.query.num)
 			Model.find({$where:where}).where('_id').lt(req.query._id).sort({'_id':-1}).limit(100).exec(function(err, list){
-			 	if(err) console.log(err)
-			 		res.render('moreproducts', { list: list, num: parseInt(req.query.num)});
+			 	if(err) {
+			 		console.error(err);
+			 		return;
+			 	}
+			 	res.render('moreproducts', { list: list, num: parseInt(req.query.num)});
 			 });
 
 		} else {
 			Model.find({$where:where}).sort({'_id':-1}).limit(100).exec(function(err, list){
-			 	if(err) console.log(err)
-			 		res.render('search', { list: list});
+			 	if(err) {
+			 		console.error(err);
+			 		return;
+			 	}
+			 	res.render('search', { list: list});
 			 });
 		}
 	};
